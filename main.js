@@ -2,16 +2,17 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import { getDatabase, ref, onChildAdded, set } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCiL7D1h3ZaoXdyoMXbgQ7b8RaUc6jdQ9g",
-    authDomain: "pog22-8b683.firebaseapp.com",
-    projectId: "pog22-8b683",
-    storageBucket: "pog22-8b683.appspot.com",
-    messagingSenderId: "793659510891",
-    appId: "1:793659510891:web:2fd69d58c30ea247b7e12e",
-    databaseURL: "https://pog22-8b683-default-rtdb.europe-west1.firebasedatabase.app/"
+    apiKey: "AIzaSyAcGYac04ouUyv-gHOhdLE_UtPEJVYJzpw",
+    authDomain: "chat-91252.firebaseapp.com",
+    databaseURL: "https://chat-91252-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "chat-91252",
+    storageBucket: "chat-91252.appspot.com",
+    messagingSenderId: "456294723984",
+    appId: "1:456294723984:web:6a7ae238cddff03fa9c315",
+    databaseURL: "https://chat-91252-default-rtdb.europe-west1.firebasedatabase.app"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // initializes Realtime Database and get a reference service
@@ -26,7 +27,7 @@ onChildAdded(chatRef, function (data) {
 
     // create element and append to list element
     const message = document.createElement("li")
-    message.innerText = data.val(); // copy message from input
+    message.innerText = new Date(data.key).toLocaleDateString("fi-Fi") + ": " +  data.val(); // copy message from input
 
     list.appendChild(message)
 })
@@ -38,7 +39,7 @@ input.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
 
         // create 'unique' id for message
-        const messageId = Date.now();
+        const messageId = new Date();
 
         // send to database
         set(ref(db, "chat/" + messageId), input.value)
